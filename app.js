@@ -30,6 +30,7 @@ app.use( bodyParse.urlencoded({extended: true}) );
 app.use((req, res, next)=>{
     req.cookies = new Cookies(req, res);
     req.userInfo = {};
+    // 拿到cookies 里缓存的userInfo
     if( req.cookies.get('userInfo') ){
         try {
             req.userInfo = JSON.parse( req.cookies.get('userInfo') );
@@ -51,7 +52,7 @@ app.use('/api',require('./router/api'));
 // 访问页面
 app.use('/',require('./router/main'));
 
-mongoose.connect('mongodb://localhost:27018/blog',function(err){
+mongoose.connect('mongodb://localhost:27017/blog',function(err){
     if(err){
         console.log('数据库连接失败');
     }else{
